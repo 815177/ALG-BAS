@@ -76,6 +76,18 @@ std::vector<int> calcular_V(std::vector<int> m, int w, int N){
     return solucion;
 }
 
+std::vector<int> calcular_A(std::vector<int> e, int w, int N){
+    std::vector<int> solucion_A;
+    int valor;
+
+    for (unsigned int i=0; i< e.size(); i++){
+        valor = (e[i] * w) % N;
+        solucion_A.push_back(valor);
+    }
+
+    return solucion_A;
+}
+
 std::vector<int> cifrar(string M, std::vector<int> e, int N, int w, std::map<char, std::vector<int>> cod_bin){
     
     int tmp=0;
