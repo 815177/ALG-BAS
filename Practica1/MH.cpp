@@ -5,6 +5,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/*----------------------------------------------------------------------------*/
 //Source: www.rookieslab.com - Ravi Ojha
 vector<int> extended_euclid_gcd(int a, int b) {
     // Returns a vector `result` of size 3 where:
@@ -61,8 +62,8 @@ int modulo_multiplicative_inverse(int A, int M) {
     return x;
 }
 
+/*----------------------------------------------------------------------------*/
 
-//CONVERTIR (51,39,1024) a (3, 31, 36)
 std::vector<int> calcular_V(std::vector<int> m, int w, int N){
     std::vector<int> solucion;
     int valor;
@@ -90,15 +91,15 @@ std::vector<int> calcular_A(std::vector<int> e, int w, int N){
 
 std::vector<int> cifrar(string M, std::vector<int> e, int N, int w, std::map<char, std::vector<int>> cod_bin){
     
-    int tmp=0;
+    int tmp;
     std::vector<int> res;
-    //Falta calcular a
-    std::vector<int> a = {34, 51, 58, 11, 39};
+    std::vector<int> a = calcular_A(e, w, N);
 
     for (unsigned int i=0; i<M.size(); i++){
 
+        tmp = 0;
         for (unsigned int j=0; j< a.size(); j++){
-            tmp =(cod_bin[(M[i])])[j] * a[j] ;
+            tmp += (cod_bin[(M[i])])[j] * a[j] ;
         }
         res.push_back(tmp);
         
@@ -133,15 +134,17 @@ std::list<std::list<int>> descifrar (std::vector<int> e, std::vector<int> m, int
 }
 
 void mostrar_msg(std::list<std::list<int>> M, std::map<char, std::vector<int>> cod_bin){
+
     for (auto i : M){
-        std::vector<int> tmp;
-        std::copy(i.begin(), i.end(), tmp.begin());
-        for (auto it : cod_bin){
-            if (it.second == tmp){
-                cout<<it.first;
+        std::vector<int> tmp{ std::begin(i), std::end(i) };
+        for (auto e : cod_bin){
+            if (e.second == tmp){
+                cout<<e.first;
             }
         }
     }
+
+    cout <<"\n";
     
 }
 
@@ -178,8 +181,9 @@ int main(){
     cod_bin['X'] = {1, 1, 0, 0, 0};
     cod_bin['Y'] = {1, 1, 0, 0, 1};
     cod_bin['Z'] = {1, 1, 0, 1, 0};
+    cod_bin[' '] = {1, 1, 0, 1, 1};
 
-    string msg = "HAY";
+    string msg = "ESE TELEFONO PARECE CARPINTERO PORQUE ASERIN";
 
     std::vector<int> m = cifrar(msg, e, N, w, cod_bin);
 
